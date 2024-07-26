@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0i7o6vhx0j44"]
+
+[ext_resource type="Script" path="res://Scripts/Zones/InvertZone.gd" id="1_vvsns"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qj2bq"]
+size = Vector2(865, 446)
+
+[node name="InvertZone" type="Area2D"]
+script = ExtResource("1_vvsns")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(422.5, 213)
+shape = SubResource("RectangleShape2D_qj2bq")

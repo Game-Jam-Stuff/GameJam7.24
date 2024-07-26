@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=3 uid="uid://clvy3eymur1dk"]
+
+[ext_resource type="PackedScene" uid="uid://cdwvtbtwmrqbn" path="res://addons/maaacks_game_template/extras/scenes/PauseMenu/PauseMenu.tscn" id="1_l24bm"]
+[ext_resource type="Script" path="res://Menu_and_UI/scenes/Menus/PauseMenu/PauseMenu.gd" id="2_21byy"]
+[ext_resource type="PackedScene" uid="uid://do47vime7qw6r" path="res://Menu_and_UI/scenes/Menus/OptionsMenu/MiniOptionsMenuWithReset.tscn" id="3_kvun0"]
+
+[node name="PauseMenu" instance=ExtResource("1_l24bm")]
+script = ExtResource("2_21byy")
+options_packed_scene = ExtResource("3_kvun0")
+main_menu_scene = "res://Maack's Extras/scenes/Menus/MainMenu/MainMenuWithAnimations.tscn"

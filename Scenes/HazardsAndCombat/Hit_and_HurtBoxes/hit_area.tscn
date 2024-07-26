@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7sv0bv4j1k3v"]
+
+[ext_resource type="Script" path="res://Scripts/HazardsAndCombat/hit_area.gd" id="1_mnulm"]
+
+[node name="HitArea" type="Area2D"]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("1_mnulm")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

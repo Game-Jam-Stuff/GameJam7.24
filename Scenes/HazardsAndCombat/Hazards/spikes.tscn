@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://dy6x8715bkm7u"]
+
+[ext_resource type="Script" path="res://Scripts/HazardsAndCombat/hit_area.gd" id="1_vs4qr"]
+
+[node name="Spikes" type="StaticBody2D"]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0, 0, 0, 1)
+antialiased = true
+polygon = PackedVector2Array(-187, 128, -185, -3, -131, -221, -87, -1, -50, -224, 0, 0, 43, -229, 83, 0, 122, -223, 174, 2, 173, 129)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-184, -6, -131, -220, -87, -3, -50, -226, -1, -1, 43, -224, 84, -1, 121, -221, 173, -2, 173, 130, -190, 127)
+
+[node name="HitArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("1_vs4qr")
+damage = 3
+canDodge = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitArea"]
+polygon = PackedVector2Array(-186, -4, -131, -218, -87, 0, -52, -225, 1, 5, 42, -226, 83, 0, 123, -223, 174, 0, 174, 129, -185, 130)
+
+[connection signal="area_entered" from="HitArea" to="HitArea" method="_on_area_entered"]

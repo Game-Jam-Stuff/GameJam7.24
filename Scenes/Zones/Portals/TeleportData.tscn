@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b4iqj56vqnx0p"]
+
+[ext_resource type="Script" path="res://Scripts/Interactive/Portals/TeleportData.gd" id="1_otrs6"]
+
+[node name="TeleportData" type="Node"]
+script = ExtResource("1_otrs6")

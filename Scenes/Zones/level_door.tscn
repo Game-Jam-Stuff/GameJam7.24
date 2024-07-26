@@ -1,0 +1,162 @@
+[gd_scene load_steps=10 format=3 uid="uid://b4lytqd5y6l56"]
+
+[ext_resource type="Script" path="res://Scripts/Zones/level_door.gd" id="1_hcid1"]
+[ext_resource type="Script" path="res://Scripts/Interactive/LevelDoor.gd" id="1_ofush"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_efhjx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q3sie"]
+size = Vector2(6, 40)
+
+[sub_resource type="Animation" id="Animation_lam75"]
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 20)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, true]
+}
+
+[sub_resource type="Animation" id="Animation_xasfo"]
+resource_name = "Open"
+length = 1.00001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -20)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -20)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, true]
+}
+
+[sub_resource type="Animation" id="Animation_eo8ja"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fhe7a"]
+_data = {
+"OpenDown": SubResource("Animation_lam75"),
+"OpenUp": SubResource("Animation_xasfo"),
+"RESET": SubResource("Animation_eo8ja")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d68wb"]
+size = Vector2(20, 41)
+
+[node name="LevelDoor" type="AnimatableBody2D" node_paths=PackedStringArray("closeTimer")]
+collision_mask = 3
+script = ExtResource("1_hcid1")
+closeTimer = NodePath("CloseTimer")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.247217, 0.122337, 0.00560496, 1)
+scale = Vector2(5, 40)
+texture = SubResource("CanvasTexture_efhjx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_q3sie")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Interact")
+libraries = {
+"": SubResource("AnimationLibrary_fhe7a")
+}
+
+[node name="CloseTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Interact" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("1_ofush")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interact"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_d68wb")
+debug_color = Color(0.804862, 0.416609, 1.92523e-07, 0.42)
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="CloseTimer" to="." method="_on_close_timer_timeout"]
+[connection signal="area_entered" from="Interact" to="Interact" method="_on_area_entered"]
+[connection signal="area_exited" from="Interact" to="Interact" method="_on_area_exited"]
+[connection signal="interacted" from="Interact" to="." method="_on_level_door_interacted"]

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ck2yt55rcskxw"]
+
+[ext_resource type="Script" path="res://Scripts/HazardsAndCombat/hurt_area.gd" id="1_qujvi"]
+
+[node name="HurtArea" type="Area2D"]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("1_qujvi")

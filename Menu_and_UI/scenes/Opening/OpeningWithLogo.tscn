@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://o3urnr0e31ns"]
+
+[ext_resource type="PackedScene" uid="uid://duccvyvttmogm" path="res://Menu_and_UI/scenes/Opening/Opening.tscn" id="1_fly7l"]
+
+[node name="Opening" instance=ExtResource("1_fly7l")]
+next_scene = "res://Menu_and_UI/scenes/Menus/MainMenu/MainMenuWithAnimations.tscn"
+images = Array[Texture2D]([null])

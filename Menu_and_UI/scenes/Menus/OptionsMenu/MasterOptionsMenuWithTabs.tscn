@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://t45kteclv70v"]
+
+[ext_resource type="PackedScene" uid="uid://br50qv6ywk21q" path="res://Menu_and_UI/scenes/Menus/OptionsMenu/MasterOptionsMenu.tscn" id="1_72xj4"]
+[ext_resource type="PackedScene" uid="uid://ymba6xf842ci" path="res://Menu_and_UI/scenes/Menus/OptionsMenu/Input/InputOptionsMenuWithMouseSensitivity.tscn" id="2_horto"]
+[ext_resource type="PackedScene" uid="uid://cgme3bfso5fkp" path="res://Menu_and_UI/scenes/Menus/OptionsMenu/Audio/AudioOptionsMenu.tscn" id="3_bttu0"]
+[ext_resource type="PackedScene" uid="uid://dwqd2geqsexcc" path="res://Menu_and_UI/scenes/Menus/OptionsMenu/Video/VideoOptionsMenuWithExtras.tscn" id="4_ppj0x"]
+[ext_resource type="PackedScene" uid="uid://64dw5t4jd3fp" path="res://Menu_and_UI/scenes/Menus/OptionsMenu/Game/GameOptionsMenu.tscn" id="5_d2n7q"]
+
+[node name="MasterOptionsMenu" instance=ExtResource("1_72xj4")]
+
+[node name="Controls" parent="TabContainer" index="1" instance=ExtResource("2_horto")]
+layout_mode = 2
+show_all_actions = true
+
+[node name="Audio" parent="TabContainer" index="2" instance=ExtResource("3_bttu0")]
+visible = false
+layout_mode = 2
+
+[node name="Video" parent="TabContainer" index="3" instance=ExtResource("4_ppj0x")]
+visible = false
+layout_mode = 2
+
+[node name="Game" parent="TabContainer" index="4" instance=ExtResource("5_d2n7q")]
+visible = false
+layout_mode = 2

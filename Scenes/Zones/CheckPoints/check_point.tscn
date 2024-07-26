@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://kr85r4j0pth7"]
+
+[ext_resource type="Script" path="res://Scripts/Checkpoints/CheckPoint.gd" id="1_7ttvx"]
+[ext_resource type="Resource" uid="uid://bvyc6tb76xqw7" path="res://Scripts/Checkpoints/CheckpointData.tres" id="2_w57kr"]
+
+[node name="CheckPoint" type="Node2D"]
+script = ExtResource("1_7ttvx")
+checkpoint_data = ExtResource("2_w57kr")
+incremental = true

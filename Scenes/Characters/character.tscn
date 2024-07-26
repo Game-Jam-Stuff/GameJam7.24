@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cf1pc5ovy3iyt"]
+
+[ext_resource type="Script" path="res://Scripts/Characters/AllCharacters/CharacterClass.gd" id="1_svyup"]
+
+[node name="Character" type="CharacterBody2D"]
+script = ExtResource("1_svyup")
+acceleration = 600
+air_acceleration = 400
+deceleration = 800
+friction = 700
+air_resistance = 500

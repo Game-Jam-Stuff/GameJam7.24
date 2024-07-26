@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dltloo1xyx0x0"]
+
+[ext_resource type="Script" path="res://Scripts/Interactive/Hanging/pull_down_zone.gd" id="1_oslwu"]
+
+[node name="PullDownZone" type="Area2D"]
+script = ExtResource("1_oslwu")
+
+[connection signal="Hanging" from="." to="." method="_on_hanging"]
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
+[connection signal="interacted" from="." to="." method="_on_interacted"]

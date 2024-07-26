@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcko8awxm415s"]
+
+[ext_resource type="Script" path="res://Scripts/Interactive/switch.gd" id="1_otwi5"]
+
+[node name="Switch" type="Area2D"]
+script = ExtResource("1_otwi5")

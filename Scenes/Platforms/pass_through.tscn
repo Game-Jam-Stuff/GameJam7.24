@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://dch5a34uwu8c0"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_7a7ca"]
+specular_color = Color(0.224095, 0.698413, 0.597176, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xklg3"]
+size = Vector2(599, 31)
+
+[node name="PassThrough" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.584284, 0.471397, 0.4516, 1)
+position = Vector2(298.75, 14.75)
+scale = Vector2(598.5, 30.5)
+texture = SubResource("CanvasTexture_7a7ca")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(298.5, 14.5)
+shape = SubResource("RectangleShape2D_xklg3")
+one_way_collision = true
