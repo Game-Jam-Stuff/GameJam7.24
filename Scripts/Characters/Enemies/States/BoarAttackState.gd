@@ -1,6 +1,9 @@
 class_name BoarAttackState
 extends EnemyState
 
+var pauseRandom = RandomNumberGenerator.new()
+
+var idleTime = false
 @onready var attackTimer = $"AttackTimer(temp)"
 
 var target : Player 

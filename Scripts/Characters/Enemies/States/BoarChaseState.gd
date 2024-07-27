@@ -24,7 +24,7 @@ func PhysicsUpdate(delta):
 	handleStateChange()
 
 func handleStateChange():
-	if (_character.inChargeZone and not _character.inAttackZone) and _character.canCharge == true:
+	if (_character.inChargeZone and not (_character.inAttackZone or _character.noChargeZone)) and _character.canCharge == true:
 		_stateMachine.transition_to(GameContants.EnemyStates.CHARGE)
 	if _character.inAttackZone:
 		_stateMachine.transition_to(GameContants.EnemyStates.ATTACK)

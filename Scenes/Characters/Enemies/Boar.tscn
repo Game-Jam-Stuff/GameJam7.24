@@ -1,14 +1,15 @@
-[gd_scene load_steps=34 format=3 uid="uid://ci1bpcnd2o3ki"]
+[gd_scene load_steps=36 format=3 uid="uid://ci1bpcnd2o3ki"]
 
-[ext_resource type="Script" path="res://Scripts/Characters/Enemies/basic_bad_guy.gd" id="1_rpfoy"]
+[ext_resource type="Script" path="res://Scripts/Characters/Enemies/boar.gd" id="1_mbbfl"]
 [ext_resource type="Texture2D" uid="uid://qdhe26h6u07" path="res://Assets/Characters/Enemies/Boar/boar-Idle-Sheet.png" id="2_78i0d"]
 [ext_resource type="Texture2D" uid="uid://ijs0640bdvi1" path="res://Assets/Characters/Enemies/Boar/boar-Run-Sheet.png" id="3_cucdh"]
 [ext_resource type="Script" path="res://Scripts/StateMachine/state_machine.gd" id="5_ocae6"]
-[ext_resource type="AnimationLibrary" path="res://Scenes/Characters/Enemies/Boar.res" id="5_qjmdh"]
+[ext_resource type="AnimationLibrary" uid="uid://dws0ajoouo1w5" path="res://Scenes/Characters/Enemies/Boar.res" id="5_qjmdh"]
 [ext_resource type="Script" path="res://Scripts/Characters/Enemies/States/BoarChargeState.gd" id="6_asb5m"]
 [ext_resource type="Script" path="res://Scripts/Characters/Enemies/States/BoarChaseState.gd" id="6_o2wpw"]
 [ext_resource type="Script" path="res://Scripts/Characters/Enemies/States/EnemyPatrolState.gd" id="6_yg3mi"]
 [ext_resource type="Script" path="res://Scripts/Characters/AllCharacters/WallDetectionRay.gd" id="7_ea738"]
+[ext_resource type="Script" path="res://Scripts/Characters/Enemies/States/BoarIdleState.gd" id="7_nmvhs"]
 [ext_resource type="Script" path="res://Scripts/Characters/Enemies/States/BoarAttackState.gd" id="8_pn6bo"]
 [ext_resource type="PackedScene" uid="uid://ck2yt55rcskxw" path="res://Scenes/HazardsAndCombat/Hit_and_HurtBoxes/hurt_area.tscn" id="9_gewyd"]
 
@@ -148,16 +149,19 @@ height = 112.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obvun"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iabqj"]
-size = Vector2(1160.25, 20)
+size = Vector2(1386.53, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uf7h7"]
 size = Vector2(136.875, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_12sne"]
+size = Vector2(844, 20)
 
 [node name="Boar" type="CharacterBody2D" node_paths=PackedStringArray("chaseTimeOut", "_spriteNode", "_animations", "_stateMachine", "torsoDetector", "headDetector", "stateLabel")]
 scale = Vector2(0.5, 0.5)
 collision_layer = 0
 collision_mask = 5
-script = ExtResource("1_rpfoy")
+script = ExtResource("1_mbbfl")
 chaseTimeOut = NodePath("State_Machine/ChaseState/CalculateTimer")
 run_speed = 150
 _spriteNode = NodePath("AnimatedSprite2D")
@@ -202,6 +206,7 @@ script = ExtResource("5_ocae6")
 initial_state = NodePath("PatrolState")
 
 [node name="IdleState" type="Node" parent="State_Machine"]
+script = ExtResource("7_nmvhs")
 
 [node name="PatrolState" type="Node" parent="State_Machine"]
 script = ExtResource("6_yg3mi")
@@ -220,6 +225,10 @@ one_shot = true
 
 [node name="chargeTimer" type="Timer" parent="State_Machine/ChargeState"]
 wait_time = 0.2
+one_shot = true
+
+[node name="PT2" type="Timer" parent="State_Machine/ChargeState"]
+wait_time = 0.5
 one_shot = true
 
 [node name="ChaseState" type="Node" parent="State_Machine" node_paths=PackedStringArray("chargeCooldown")]
@@ -281,11 +290,19 @@ collision_mask = 3
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
 shape = SubResource("RectangleShape2D_uf7h7")
 
+[node name="NoChargeArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NoChargeArea"]
+shape = SubResource("RectangleShape2D_12sne")
+
 [connection signal="wall_entered" from="NearWall" to="State_Machine/PatrolState" method="_near_wall_wall_entered"]
 [connection signal="wall_entered" from="On Wall" to="State_Machine/PatrolState" method="_on_wall_wall_entered"]
 [connection signal="timeout" from="State_Machine/PatrolState/PauseTimer" to="State_Machine/PatrolState" method="_on_pause_timer_timeout"]
 [connection signal="timeout" from="State_Machine/ChargeState/chargeCooldownTimer" to="State_Machine/ChargeState" method="_on_charge_cooldown_timer_timeout"]
 [connection signal="timeout" from="State_Machine/ChargeState/chargeTimer" to="State_Machine/ChargeState" method="_on_charge_timer_timeout"]
+[connection signal="timeout" from="State_Machine/ChargeState/PT2" to="State_Machine/ChargeState" method="_on_pt_2_timeout"]
 [connection signal="timeout" from="State_Machine/ChaseState/CalculateTimer" to="State_Machine/ChaseState" method="_on_calculate_timer_timeout"]
 [connection signal="timeout" from="State_Machine/ChaseState/LeaveChaseTimer" to="State_Machine/ChaseState" method="_on_leave_chase_timer_timeout"]
 [connection signal="timeout" from="State_Machine/AttackState/AttackTimer(temp)" to="State_Machine/AttackState" method="_on_attack_timertemp_timeout"]
@@ -293,3 +310,5 @@ shape = SubResource("RectangleShape2D_uf7h7")
 [connection signal="body_exited" from="ChargeArea" to="." method="_on_charge_area_body_exited"]
 [connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
 [connection signal="body_exited" from="AttackArea" to="." method="_on_attack_area_body_exited"]
+[connection signal="body_entered" from="NoChargeArea" to="." method="_on_no_charge_area_body_entered"]
+[connection signal="body_exited" from="NoChargeArea" to="." method="_on_no_charge_area_body_exited"]

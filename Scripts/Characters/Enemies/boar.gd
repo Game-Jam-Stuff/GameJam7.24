@@ -5,6 +5,9 @@ var inChargeZone = false
 var inAttackZone = false
 var canCharge = true
 var canChase = false
+var noChargeZone = false
+
+
 
 func _ready():
 	direction.x = 1
@@ -33,6 +36,7 @@ func _on_charge_area_body_entered(body: Node2D) -> void:
 		return
 	else: 
 		inChargeZone = true
+		print("inChargeZone")
 		print(inChargeZone)
 
 
@@ -41,6 +45,7 @@ func _on_charge_area_body_exited(body: Node2D) -> void:
 		return
 	else: 
 		inChargeZone = false # Replace with function body.
+		print("inChargeZone")
 		print(inChargeZone)
 
 
@@ -49,6 +54,7 @@ func _on_attack_area_body_entered(body: Node2D) -> void:
 		return
 	else: 
 		inAttackZone = true # Replace with function body.
+		print("inAttackZone") # Replace with function body.
 		print(inAttackZone) # Replace with function body.
 		_stateMachine.transition_to(GameContants.EnemyStates.ATTACK)
 
@@ -58,8 +64,27 @@ func _on_attack_area_body_exited(body: Node2D) -> void:
 		return
 	else: 
 		inAttackZone = false # Replace with function body.
+		print("inAttackZone") # Replace with function body.
 		print(inAttackZone) # Replace with function body.
 
 
 func _on_start_seeking_area_body_entered(body: Node2D) -> void:
 	pass # Replace with function body.
+
+
+func _on_no_charge_area_body_entered(body: Node2D) -> void:
+	if !body is Player:
+		return
+	else: 
+		noChargeZone = true
+		print("noChargeZone")
+		print(noChargeZone)
+
+
+func _on_no_charge_area_body_exited(body: Node2D) -> void:
+	if !body is Player:
+		return
+	else: 
+		noChargeZone = false
+		print("noChargeZone")
+		print(noChargeZone)
