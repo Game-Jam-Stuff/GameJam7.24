@@ -46,8 +46,16 @@ class UserInputs:
 
 class EnemyAnimations:
 	## Enemy Animations
-	const ANIM_IDLE = "Idle"
-	const ANIM_MOVING = "Move"
-	const ANIM_SLASHING = "Attack"
+	const ANIM_IDLE = "Boar/Idle"
+	const ANIM_MOVING = "Boar/Move"
+	const ANIM_SLASHING = "Boar/Attack"
 	const ANIM_HURT = "Hit"
 	const ANIM_DYING = "Death"
+	
+
+class EnemyStates:
+	const PATROL = "PatrolState"
+	const IDLE = "IdleState"
+	const CHARGE = "ChargeState"
+	const CHASE = "ChaseState"
+	const ATTACK = "AttackState"

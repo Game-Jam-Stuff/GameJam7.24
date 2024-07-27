@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://wbyjilv515v3" path="res://Scenes/Platforms/path_follow_platform.tscn" id="10_o27qf"]
 [ext_resource type="PackedScene" uid="uid://dy6x8715bkm7u" path="res://Scenes/HazardsAndCombat/Hazards/spikes.tscn" id="11_kbgx2"]
 [ext_resource type="PackedScene" uid="uid://bv74iusldxbuo" path="res://Scenes/Zones/wall_jump_zone.tscn" id="12_ae5cd"]
-[ext_resource type="PackedScene" uid="uid://cby63clb0lhpf" path="res://Scenes/Characters/Eskil.tscn" id="15_72hy4"]
+[ext_resource type="PackedScene" uid="uid://cby63clb0lhpf" path="res://Scenes/Characters/Player/Eskil.tscn" id="15_72hy4"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_j80pn"]
 source_geometry_group_name = &"navigation_polygon_source_group"

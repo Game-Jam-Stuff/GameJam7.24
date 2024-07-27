@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://swrhjdowv1k1" path="res://Scenes/Tilemaps/Textures/Textures-16.png" id="2_ybsc7"]
 [ext_resource type="PackedScene" uid="uid://r7aocy4vb0iw" path="res://Scenes/Zones/Portals/door.tscn" id="3_0viyg"]
 [ext_resource type="PackedScene" uid="uid://cdwvtbtwmrqbn" path="res://addons/maaacks_game_template/extras/scenes/PauseMenu/PauseMenu.tscn" id="3_7p352"]
-[ext_resource type="PackedScene" uid="uid://cby63clb0lhpf" path="res://Scenes/Characters/Eskil.tscn" id="4_ccpps"]
+[ext_resource type="PackedScene" uid="uid://cby63clb0lhpf" path="res://Scenes/Characters/Player/Eskil.tscn" id="4_ccpps"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vge37"]
 texture = ExtResource("2_ybsc7")
@@ -1407,19 +1407,34 @@ canTeleportBack = true
 position = Vector2(98, -207)
 
 [node name="Label" type="Label" parent="."]
-offset_left = -382.0
-offset_top = -49.0
-offset_right = -124.0
-offset_bottom = -26.0
+offset_left = 135.0
+offset_top = -316.0
+offset_right = 393.0
+offset_bottom = -293.0
 text = "Use WASD or arrow Keys to move"
 
 [node name="Label2" type="Label" parent="."]
-offset_left = -76.0
-offset_top = -326.0
-offset_right = 65.0
-offset_bottom = -303.0
-text = "Press E to Interact
+offset_left = 136.0
+offset_top = -370.0
+offset_right = 277.0
+offset_bottom = -347.0
+text = "Press E to Interact with red \"Portals\"
 "
+
+[node name="Label3" type="Label" parent="."]
+offset_left = -27.0
+offset_top = -346.0
+offset_right = 13.0
+offset_bottom = -323.0
+text = "Level 1"
+
+[node name="Label" type="Label" parent="Label3"]
+layout_mode = 0
+offset_left = 651.0
+offset_top = 12.0
+offset_right = 705.0
+offset_bottom = 35.0
+text = "Level 2"
 
 [connection signal="player_entered" from="PlatformLevel1Door" to="." method="_on_platform_level_1_door_player_entered"]
 [connection signal="player_entered" from="Level2Door" to="." method="_on_level_2_door_player_entered"]

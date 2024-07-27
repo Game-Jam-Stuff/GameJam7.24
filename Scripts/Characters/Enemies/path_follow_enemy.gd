@@ -1,0 +1,2 @@
+class_name PathFollowEnemy
+extends PathFollow2D

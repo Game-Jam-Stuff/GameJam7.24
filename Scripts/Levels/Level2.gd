@@ -20,3 +20,7 @@ func _on_player_died():
 
 func _on_return_to_overworld_door_door_player_entered() -> void:
 	TeleportData.current_portal.teleport_out() # Replace with function body.  # Replace with function body.
+
+
+func _on_seeking_area_body_entered(body: Node2D) -> void:
+	pass # Replace with function body.

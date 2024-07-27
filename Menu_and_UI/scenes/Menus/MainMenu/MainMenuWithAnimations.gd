@@ -40,3 +40,8 @@ func _input(event):
 func _ready():
 	super._ready()
 	animation_state_machine = $MenuAnimationTree.get("parameters/playback")
+
+
+func _on_new_game_button_pressed() -> void:
+	GameLevelLog.Reset()
+	play_game() # Replace with function body.

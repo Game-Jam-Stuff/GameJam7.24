@@ -376,3 +376,9 @@ text = "This is where Boxy and I test and Build things."
 [node name="MenuButtons" parent="MenuContainer/VBoxContainer/MenuMargin" index="0"]
 modulate = Color(1, 1, 1, 0)
 lock = true
+
+[node name="NewGameButton" type="Button" parent="MenuContainer/VBoxContainer/MenuMargin/MenuButtons" index="1"]
+layout_mode = 2
+text = "New Game"
+
+[connection signal="pressed" from="MenuContainer/VBoxContainer/MenuMargin/MenuButtons/NewGameButton" to="." method="_on_new_game_button_pressed"]

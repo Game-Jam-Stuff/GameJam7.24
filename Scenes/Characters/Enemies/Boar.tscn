@@ -1,0 +1,295 @@
+[gd_scene load_steps=34 format=3 uid="uid://ci1bpcnd2o3ki"]
+
+[ext_resource type="Script" path="res://Scripts/Characters/Enemies/basic_bad_guy.gd" id="1_rpfoy"]
+[ext_resource type="Texture2D" uid="uid://qdhe26h6u07" path="res://Assets/Characters/Enemies/Boar/boar-Idle-Sheet.png" id="2_78i0d"]
+[ext_resource type="Texture2D" uid="uid://ijs0640bdvi1" path="res://Assets/Characters/Enemies/Boar/boar-Run-Sheet.png" id="3_cucdh"]
+[ext_resource type="Script" path="res://Scripts/StateMachine/state_machine.gd" id="5_ocae6"]
+[ext_resource type="AnimationLibrary" path="res://Scenes/Characters/Enemies/Boar.res" id="5_qjmdh"]
+[ext_resource type="Script" path="res://Scripts/Characters/Enemies/States/BoarChargeState.gd" id="6_asb5m"]
+[ext_resource type="Script" path="res://Scripts/Characters/Enemies/States/BoarChaseState.gd" id="6_o2wpw"]
+[ext_resource type="Script" path="res://Scripts/Characters/Enemies/States/EnemyPatrolState.gd" id="6_yg3mi"]
+[ext_resource type="Script" path="res://Scripts/Characters/AllCharacters/WallDetectionRay.gd" id="7_ea738"]
+[ext_resource type="Script" path="res://Scripts/Characters/Enemies/States/BoarAttackState.gd" id="8_pn6bo"]
+[ext_resource type="PackedScene" uid="uid://ck2yt55rcskxw" path="res://Scenes/HazardsAndCombat/Hit_and_HurtBoxes/hurt_area.tscn" id="9_gewyd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vymrh"]
+atlas = ExtResource("2_78i0d")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jl4ca"]
+atlas = ExtResource("2_78i0d")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6hwn3"]
+atlas = ExtResource("2_78i0d")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e3n2h"]
+atlas = ExtResource("2_78i0d")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8upla"]
+atlas = ExtResource("2_78i0d")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gsp5o"]
+atlas = ExtResource("2_78i0d")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_csl5x"]
+atlas = ExtResource("2_78i0d")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_la81s"]
+atlas = ExtResource("2_78i0d")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_803ul"]
+atlas = ExtResource("3_cucdh")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_17rum"]
+atlas = ExtResource("3_cucdh")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aiv05"]
+atlas = ExtResource("3_cucdh")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4m1c"]
+atlas = ExtResource("3_cucdh")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0kiis"]
+atlas = ExtResource("3_cucdh")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lvquy"]
+atlas = ExtResource("3_cucdh")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qtyo8"]
+atlas = ExtResource("3_cucdh")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_07b87"]
+atlas = ExtResource("3_cucdh")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5dhui"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vymrh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jl4ca")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6hwn3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e3n2h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8upla")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gsp5o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_csl5x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_la81s")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_803ul")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_17rum")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aiv05")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4m1c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0kiis")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lvquy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qtyo8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_07b87")
+}],
+"loop": true,
+"name": &"Move",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fgctr"]
+radius = 56.0
+height = 112.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n2tc2"]
+radius = 56.0
+height = 112.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_obvun"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iabqj"]
+size = Vector2(1160.25, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uf7h7"]
+size = Vector2(136.875, 20)
+
+[node name="Boar" type="CharacterBody2D" node_paths=PackedStringArray("chaseTimeOut", "_spriteNode", "_animations", "_stateMachine", "torsoDetector", "headDetector", "stateLabel")]
+scale = Vector2(0.5, 0.5)
+collision_layer = 0
+collision_mask = 5
+script = ExtResource("1_rpfoy")
+chaseTimeOut = NodePath("State_Machine/ChaseState/CalculateTimer")
+run_speed = 150
+_spriteNode = NodePath("AnimatedSprite2D")
+_animations = NodePath("AnimationPlayer")
+_stateMachine = NodePath("State_Machine")
+torsoDetector = NodePath("NearWall")
+headDetector = NodePath("On Wall")
+stateLabel = NodePath("StateLabel")
+stateLabelOn = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -50)
+sprite_frames = SubResource("SpriteFrames_5dhui")
+animation = &"Move"
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -44)
+shape = SubResource("CapsuleShape2D_fgctr")
+
+[node name="NearWall" type="RayCast2D" parent="."]
+position = Vector2(0, -46)
+target_position = Vector2(122, 0)
+collide_with_areas = true
+script = ExtResource("7_ea738")
+
+[node name="On Wall" type="RayCast2D" parent="."]
+position = Vector2(0, -40)
+target_position = Vector2(74, 0)
+collide_with_bodies = false
+script = ExtResource("7_ea738")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"Boar": ExtResource("5_qjmdh")
+}
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="State_Machine" type="Node" parent="."]
+script = ExtResource("5_ocae6")
+initial_state = NodePath("PatrolState")
+
+[node name="IdleState" type="Node" parent="State_Machine"]
+
+[node name="PatrolState" type="Node" parent="State_Machine"]
+script = ExtResource("6_yg3mi")
+
+[node name="PauseTimer" type="Timer" parent="State_Machine/PatrolState"]
+one_shot = true
+
+[node name="ChargeState" type="Node" parent="State_Machine" node_paths=PackedStringArray("charge_Timer", "chargeCooldown")]
+script = ExtResource("6_asb5m")
+charge_Timer = NodePath("chargeTimer")
+chargeCooldown = NodePath("chargeCooldownTimer")
+
+[node name="chargeCooldownTimer" type="Timer" parent="State_Machine/ChargeState"]
+wait_time = 3.0
+one_shot = true
+
+[node name="chargeTimer" type="Timer" parent="State_Machine/ChargeState"]
+wait_time = 0.2
+one_shot = true
+
+[node name="ChaseState" type="Node" parent="State_Machine" node_paths=PackedStringArray("chargeCooldown")]
+script = ExtResource("6_o2wpw")
+chargeCooldown = NodePath("../ChargeState/chargeCooldownTimer")
+
+[node name="CalculateTimer" type="Timer" parent="State_Machine/ChaseState"]
+wait_time = 0.5
+one_shot = true
+
+[node name="LeaveChaseTimer" type="Timer" parent="State_Machine/ChaseState"]
+wait_time = 0.5
+one_shot = true
+
+[node name="AttackState" type="Node" parent="State_Machine"]
+script = ExtResource("8_pn6bo")
+
+[node name="AttackTimer(temp)" type="Timer" parent="State_Machine/AttackState"]
+one_shot = true
+
+[node name="HurtState" type="Node" parent="State_Machine"]
+
+[node name="DeadState" type="Node" parent="State_Machine"]
+
+[node name="StateLabel" type="Label" parent="."]
+offset_left = -42.0
+offset_top = -220.0
+offset_right = 44.0
+offset_bottom = -197.0
+text = "State Label"
+
+[node name="HurtArea" parent="." instance=ExtResource("9_gewyd")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtArea"]
+visible = false
+position = Vector2(0, -44)
+shape = SubResource("CapsuleShape2D_n2tc2")
+
+[node name="InteractionZone" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionZone"]
+visible = false
+shape = SubResource("RectangleShape2D_obvun")
+
+[node name="ChargeArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChargeArea"]
+shape = SubResource("RectangleShape2D_iabqj")
+
+[node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource("RectangleShape2D_uf7h7")
+
+[connection signal="wall_entered" from="NearWall" to="State_Machine/PatrolState" method="_near_wall_wall_entered"]
+[connection signal="wall_entered" from="On Wall" to="State_Machine/PatrolState" method="_on_wall_wall_entered"]
+[connection signal="timeout" from="State_Machine/PatrolState/PauseTimer" to="State_Machine/PatrolState" method="_on_pause_timer_timeout"]
+[connection signal="timeout" from="State_Machine/ChargeState/chargeCooldownTimer" to="State_Machine/ChargeState" method="_on_charge_cooldown_timer_timeout"]
+[connection signal="timeout" from="State_Machine/ChargeState/chargeTimer" to="State_Machine/ChargeState" method="_on_charge_timer_timeout"]
+[connection signal="timeout" from="State_Machine/ChaseState/CalculateTimer" to="State_Machine/ChaseState" method="_on_calculate_timer_timeout"]
+[connection signal="timeout" from="State_Machine/ChaseState/LeaveChaseTimer" to="State_Machine/ChaseState" method="_on_leave_chase_timer_timeout"]
+[connection signal="timeout" from="State_Machine/AttackState/AttackTimer(temp)" to="State_Machine/AttackState" method="_on_attack_timertemp_timeout"]
+[connection signal="body_entered" from="ChargeArea" to="." method="_on_charge_area_body_entered"]
+[connection signal="body_exited" from="ChargeArea" to="." method="_on_charge_area_body_exited"]
+[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_exited" from="AttackArea" to="." method="_on_attack_area_body_exited"]

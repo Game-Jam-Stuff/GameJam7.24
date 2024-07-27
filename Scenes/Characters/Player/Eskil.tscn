@@ -1,0 +1,551 @@
+[gd_scene load_steps=69 format=3 uid="uid://cby63clb0lhpf"]
+
+[ext_resource type="Script" path="res://Scripts/Characters/Player/Player.gd" id="1_wc8qq"]
+[ext_resource type="Texture2D" uid="uid://dtulxe5jsiiew" path="res://Assets/Characters/Eskil/MC-dash-Sheet.png" id="2_lgw36"]
+[ext_resource type="Texture2D" uid="uid://dlmlq0cpfshff" path="res://Assets/Characters/Eskil/MC_Idle-Sheet.png" id="2_xmwjx"]
+[ext_resource type="Texture2D" uid="uid://6gl2beoqw751" path="res://Assets/Characters/Eskil/MC-Falling-Sheet.png" id="3_5og5r"]
+[ext_resource type="Texture2D" uid="uid://uw6md6uascft" path="res://Assets/Characters/Eskil/MC-Run-Sheet.png" id="3_ue86n"]
+[ext_resource type="Texture2D" uid="uid://c6rn7s5acirvm" path="res://Assets/Characters/Eskil/MC-Hanging-Sheet.png" id="4_1qpd5"]
+[ext_resource type="PackedScene" uid="uid://ck2yt55rcskxw" path="res://Scenes/HazardsAndCombat/Hit_and_HurtBoxes/hurt_area.tscn" id="4_3htii"]
+[ext_resource type="Texture2D" uid="uid://dfnnr2aqtnqwl" path="res://Assets/Characters/Eskil/MC-Hit-Sheet.png" id="5_73da2"]
+[ext_resource type="Script" path="res://Scripts/Characters/AllCharacters/HeadDetector.gd" id="5_x8lb2"]
+[ext_resource type="Script" path="res://Scripts/Characters/AllCharacters/WallDetectionRay.gd" id="6_ce5ja"]
+[ext_resource type="Script" path="res://Scripts/StateMachine/state_machine.gd" id="7_37aqv"]
+[ext_resource type="Texture2D" uid="uid://cqwrgdb1vj5t1" path="res://Assets/Characters/Eskil/MC-Jump-Sheet.png" id="7_mr44m"]
+[ext_resource type="Script" path="res://Scripts/Characters/Player/States/PlayerIdleState.gd" id="8_g5mb2"]
+[ext_resource type="Texture2D" uid="uid://ch6lsvd6csj0y" path="res://Assets/Characters/Eskil/MC-Magic-Sheet.png" id="8_n2umy"]
+[ext_resource type="Script" path="res://Scripts/Characters/Player/States/PlayerMoveState.gd" id="9_kgsik"]
+[ext_resource type="AnimationLibrary" uid="uid://dx1gow5vfmykm" path="res://Assets/Characters/Eskil/EskilAnims.res" id="10_1s5k1"]
+[ext_resource type="Script" path="res://Scripts/Characters/Player/States/PlayerDashState.gd" id="10_mekrg"]
+[ext_resource type="Script" path="res://Scripts/Characters/Player/States/PlayerJumpState.gd" id="11_6biww"]
+[ext_resource type="Script" path="res://Scripts/Characters/Player/States/PlayerWallState.gd" id="12_237ld"]
+[ext_resource type="Script" path="res://Scripts/Characters/Player/States/PlayerCrouchState.gd" id="13_v1hp6"]
+[ext_resource type="Script" path="res://Scripts/Characters/Player/States/PlayerHangState.gd" id="14_1lqdr"]
+[ext_resource type="Script" path="res://Scripts/Characters/Player/States/PlayerHurtState.gd" id="15_ye732"]
+[ext_resource type="Script" path="res://Scripts/Characters/Player/States/PlayerAttackState.gd" id="16_8ep6d"]
+[ext_resource type="Script" path="res://Scripts/Characters/Player/States/PlayerIsDeadState.gd" id="17_qruef"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xrmpl"]
+atlas = ExtResource("2_lgw36")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7gx7q"]
+atlas = ExtResource("2_lgw36")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41ke1"]
+atlas = ExtResource("2_lgw36")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kqs4u"]
+atlas = ExtResource("2_lgw36")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uw42g"]
+atlas = ExtResource("2_lgw36")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7edt8"]
+atlas = ExtResource("2_lgw36")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4tnjl"]
+atlas = ExtResource("3_5og5r")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3571y"]
+atlas = ExtResource("3_5og5r")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i3mq0"]
+atlas = ExtResource("4_1qpd5")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x41fs"]
+atlas = ExtResource("4_1qpd5")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t7jta"]
+atlas = ExtResource("4_1qpd5")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_68hwa"]
+atlas = ExtResource("5_73da2")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2vme5"]
+atlas = ExtResource("5_73da2")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ed0p"]
+atlas = ExtResource("5_73da2")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i0ke2"]
+atlas = ExtResource("5_73da2")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u34ey"]
+atlas = ExtResource("2_xmwjx")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_os0hg"]
+atlas = ExtResource("2_xmwjx")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w1k5i"]
+atlas = ExtResource("2_xmwjx")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nlmxh"]
+atlas = ExtResource("2_xmwjx")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_baev5"]
+atlas = ExtResource("2_xmwjx")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tduca"]
+atlas = ExtResource("7_mr44m")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2vcpd"]
+atlas = ExtResource("7_mr44m")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_byogj"]
+atlas = ExtResource("7_mr44m")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gtoth"]
+atlas = ExtResource("8_n2umy")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pve8w"]
+atlas = ExtResource("8_n2umy")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i1fhn"]
+atlas = ExtResource("8_n2umy")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s6sag"]
+atlas = ExtResource("8_n2umy")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yhyls"]
+atlas = ExtResource("8_n2umy")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3prh4"]
+atlas = ExtResource("8_n2umy")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ml6lx"]
+atlas = ExtResource("8_n2umy")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j3c6m"]
+atlas = ExtResource("8_n2umy")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktrtc"]
+atlas = ExtResource("8_n2umy")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gw4cj"]
+atlas = ExtResource("3_ue86n")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sc5lo"]
+atlas = ExtResource("3_ue86n")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s2loc"]
+atlas = ExtResource("3_ue86n")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mny03"]
+atlas = ExtResource("3_ue86n")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rxpff"]
+atlas = ExtResource("3_ue86n")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2qp7f"]
+atlas = ExtResource("3_ue86n")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5xhem"]
+atlas = ExtResource("3_ue86n")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fiyrl"]
+atlas = ExtResource("3_ue86n")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yhgod"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xrmpl")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_7gx7q")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_41ke1")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_kqs4u")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_uw42g")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_7edt8")
+}],
+"loop": false,
+"name": &"Dash",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4tnjl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3571y")
+}],
+"loop": true,
+"name": &"Fall",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i3mq0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x41fs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t7jta")
+}],
+"loop": true,
+"name": &"Hang",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_68hwa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2vme5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ed0p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i0ke2")
+}],
+"loop": false,
+"name": &"Hurt",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u34ey")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_os0hg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w1k5i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nlmxh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_baev5")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tduca")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2vcpd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_byogj")
+}],
+"loop": true,
+"name": &"Jump",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gtoth")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pve8w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i1fhn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s6sag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yhyls")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3prh4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ml6lx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j3c6m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktrtc")
+}],
+"loop": false,
+"name": &"Magic",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gw4cj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sc5lo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s2loc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mny03")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rxpff")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2qp7f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5xhem")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fiyrl")
+}],
+"loop": true,
+"name": &"Move",
+"speed": 7.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jhmax"]
+radius = 76.0
+height = 256.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tx8lr"]
+size = Vector2(384, 260)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_22jt2"]
+radius = 76.0
+height = 256.0
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("jumpBuildVelocity", "character_Collision", "interactArea", "dash_Timer", "dash_CooldownTimer", "wallSlideTimer", "_spriteNode", "_animations", "_stateMachine", "jump_CoyoteTime", "wall_jump_CoyoteTime", "torsoDetector", "headDetector", "stateLabel", "healthLabel", "debugPathLine")]
+scale = Vector2(0.25, 0.25)
+collision_layer = 2
+collision_mask = 5
+floor_snap_length = 64.0
+script = ExtResource("1_wc8qq")
+jumpBuildVelocity = NodePath("JumpTimers/jumpBuildVelocity")
+character_Collision = NodePath("CollisionZone")
+interactArea = NodePath("InteractionZone")
+dash_Timer = NodePath("DashTimers/dash_Timer")
+dash_CooldownTimer = NodePath("DashTimers/dash_CooldownTimer")
+wallSlideTimer = NodePath("WallJumpTimers/wallSlideTimer")
+wall_jump_horizontal_force = 500
+wall_jump_vertical_force = -400
+_spriteNode = NodePath("Eskil")
+_animations = NodePath("AnimationPlayer")
+dodgeChance = 0.2
+_stateMachine = NodePath("State_Machine")
+jump_CoyoteTime = NodePath("JumpTimers/jump_coyoteTime")
+wall_jump_CoyoteTime = NodePath("JumpTimers/wall_jump_coyoteTime")
+torsoDetector = NodePath("WallDetector")
+headDetector = NodePath("HeadDetector")
+stateLabel = NodePath("stateLabel")
+stateLabelOn = true
+healthLabel = NodePath("healthLabel")
+healthLabelOn = true
+debugPathLine = NodePath("DebugTools/debugPathLine")
+
+[node name="Eskil" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_yhgod")
+animation = &"Dash"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Eskil")
+libraries = {
+"Eskil": ExtResource("10_1s5k1")
+}
+
+[node name="CollisionZone" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CapsuleShape2D_jhmax")
+
+[node name="InteractionZone" type="Area2D" parent="."]
+visible = false
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionZone"]
+shape = SubResource("RectangleShape2D_tx8lr")
+debug_color = Color(0.746995, 0.461788, 1.15514e-06, 0.42)
+
+[node name="HurtArea" parent="." instance=ExtResource("4_3htii")]
+visible = false
+collision_layer = 16
+collision_mask = 0
+team = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtArea"]
+shape = SubResource("CapsuleShape2D_22jt2")
+debug_color = Color(0.029436, 0.65069, 0, 0.42)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="stateLabel" type="Label" parent="."]
+offset_left = -76.0
+offset_top = -186.0
+offset_right = 10.0
+offset_bottom = -163.0
+scale = Vector2(2.23077, 2.83333)
+text = "State Label"
+
+[node name="healthLabel" type="Label" parent="."]
+offset_left = -2.0
+offset_top = -220.0
+offset_right = 17.0
+offset_bottom = -197.0
+scale = Vector2(1.65281, 2.37392)
+text = "10"
+
+[node name="HeadDetector" type="RayCast2D" parent="."]
+position = Vector2(0, -84)
+scale = Vector2(4, 4)
+target_position = Vector2(26, 0)
+collide_with_areas = true
+script = ExtResource("5_x8lb2")
+
+[node name="WallDetector" type="RayCast2D" parent="."]
+position = Vector2(0, 84)
+scale = Vector2(4, 4)
+target_position = Vector2(26, 0)
+collide_with_areas = true
+script = ExtResource("6_ce5ja")
+
+[node name="Detectors" type="Node" parent="."]
+
+[node name="JumpTimers" type="Node" parent="."]
+
+[node name="jumpBuildVelocity" type="Timer" parent="JumpTimers"]
+wait_time = 0.2
+one_shot = true
+
+[node name="jump_coyoteTime" type="Timer" parent="JumpTimers"]
+wait_time = 0.1
+one_shot = true
+
+[node name="wall_jump_coyoteTime" type="Timer" parent="JumpTimers"]
+wait_time = 0.1
+one_shot = true
+
+[node name="DashTimers" type="Node" parent="."]
+
+[node name="dash_Timer" type="Timer" parent="DashTimers"]
+wait_time = 0.3
+one_shot = true
+
+[node name="dash_CooldownTimer" type="Timer" parent="DashTimers"]
+wait_time = 1.5
+one_shot = true
+
+[node name="WallJumpTimers" type="Node" parent="."]
+
+[node name="wallSlideTimer" type="Timer" parent="WallJumpTimers"]
+wait_time = 1.25
+one_shot = true
+
+[node name="State_Machine" type="Node" parent="."]
+script = ExtResource("7_37aqv")
+initial_state = NodePath("MoveState")
+
+[node name="IdleState" type="Node" parent="State_Machine" node_paths=PackedStringArray("_stateMachine")]
+script = ExtResource("8_g5mb2")
+_stateMachine = NodePath("..")
+
+[node name="MoveState" type="Node" parent="State_Machine" node_paths=PackedStringArray("_stateMachine")]
+script = ExtResource("9_kgsik")
+_stateMachine = NodePath("..")
+
+[node name="DashState" type="Node" parent="State_Machine" node_paths=PackedStringArray("_stateMachine")]
+script = ExtResource("10_mekrg")
+_stateMachine = NodePath("..")
+
+[node name="JumpState" type="Node" parent="State_Machine" node_paths=PackedStringArray("_stateMachine")]
+script = ExtResource("11_6biww")
+_stateMachine = NodePath("..")
+
+[node name="WallState" type="Node" parent="State_Machine" node_paths=PackedStringArray("_stateMachine")]
+script = ExtResource("12_237ld")
+_stateMachine = NodePath("..")
+
+[node name="CrouchState" type="Node" parent="State_Machine" node_paths=PackedStringArray("_stateMachine")]
+script = ExtResource("13_v1hp6")
+_stateMachine = NodePath("..")
+
+[node name="HangState" type="Node" parent="State_Machine"]
+script = ExtResource("14_1lqdr")
+
+[node name="WasHurtState" type="Node" parent="State_Machine" node_paths=PackedStringArray("_stateMachine")]
+script = ExtResource("15_ye732")
+_stateMachine = NodePath("..")
+
+[node name="AttackState" type="Node" parent="State_Machine" node_paths=PackedStringArray("_stateMachine")]
+script = ExtResource("16_8ep6d")
+_stateMachine = NodePath("..")
+
+[node name="IsDeadState" type="Node" parent="State_Machine" node_paths=PackedStringArray("_stateMachine")]
+script = ExtResource("17_qruef")
+_stateMachine = NodePath("..")
+
+[node name="DebugTools" type="Node" parent="."]
+
+[node name="debugPathLine" type="Line2D" parent="DebugTools"]
+width = 3.0
+default_color = Color(1, 0, 0, 1)
+
+[node name="Marker2D" type="Marker2D" parent="."]
+
+[connection signal="animation_finished" from="Eskil" to="." method="_on_eskil_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="State_Machine/JumpState" method="_on_animation_player_animation_finished"]
+[connection signal="animation_started" from="AnimationPlayer" to="State_Machine/JumpState" method="_on_animation_player_animation_started"]
+[connection signal="hurt" from="HurtArea" to="." method="_on_hurt_area_hurt"]
+[connection signal="headOffWall" from="HeadDetector" to="." method="_on_head_detector_head_off_wall"]
+[connection signal="headOnWall" from="HeadDetector" to="." method="_on_head_detector_head_on_wall"]
+[connection signal="wall_entered" from="WallDetector" to="." method="_on_wall_detector_wall_entered"]
+[connection signal="wall_exited" from="WallDetector" to="." method="_on_wall_detector_wall_exited"]
+[connection signal="timeout" from="JumpTimers/jumpBuildVelocity" to="." method="_on_jump_build_velocity_timeout"]
+[connection signal="timeout" from="DashTimers/dash_Timer" to="State_Machine/DashState" method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="DashTimers/dash_CooldownTimer" to="State_Machine/DashState" method="_on_dash_cooldown_timer_timeout"]
+[connection signal="timeout" from="WallJumpTimers/wallSlideTimer" to="State_Machine/WallState" method="_on_wall_slide_timer_timeout"]

@@ -6,6 +6,11 @@ const MAX_LEVEL_REACHED = "MaxLevelReached"
 const CURRENT_LEVEL = "CurrentLevel"
 const MAX_LEVEL = "MaxLevel"
 
+static func Reset():
+	Config.set_config(GAME_LOG_SECTION, CURRENT_LEVEL, 1)
+	Config.set_config(GAME_LOG_SECTION, MAX_LEVEL_REACHED, 1)
+	Config.set_config(GAME_LOG_SECTION, IN_BEGINNING, true)
+
 static func level_reached(level_number : int) -> void:
 	var max_level_reached = Config.get_config(GAME_LOG_SECTION, MAX_LEVEL_REACHED, 0)
 	max_level_reached = max(level_number, max_level_reached)
