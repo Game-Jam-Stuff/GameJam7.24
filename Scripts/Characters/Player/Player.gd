@@ -53,8 +53,8 @@ func _physics_process(_delta):
 
 ## When you see the _ in front of variable names in state changes, 
 ## those are just to help me differentiate the key from the value.
-func _on_hurt_area_hurt(damage, canDodge):
-	_stateMachine.transition_to(GameContants.PlayerStates.HURT, {_damage = damage, _canDodge = canDodge})
+func _on_hurt_area_hurt(damage, canDodge, hitDirection):
+	_stateMachine.transition_to(GameContants.PlayerStates.HURT, {_damage = damage, _canDodge = canDodge, _hitDir = hitDirection})
 
 
 func canGrab():
@@ -67,3 +67,7 @@ func canGrab():
 
 
 
+
+
+func _on_timer_timeout() -> void:
+	hurtPlaying = false

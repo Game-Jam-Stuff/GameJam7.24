@@ -12,7 +12,8 @@ func _ready():
 func Enter(_msg := {}) -> void:
 	print("Move Enter");
 	_character.stateLabel.text = "MoveState"
-	_character._animations.play(GameContants.PlayerAnimations.ANIM_MOVING)
+	if _character.hurtTimer.is_stopped():
+		_character._animations.play(GameContants.PlayerAnimations.ANIM_MOVING)
 
 func Update(_delta):
 	pass

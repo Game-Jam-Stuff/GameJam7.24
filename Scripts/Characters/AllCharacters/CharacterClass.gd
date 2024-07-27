@@ -59,6 +59,7 @@ enum movementTypes {TOPDOWN, SIDE}
 ## State Machine
 @export_subgroup("State Machine")
 @export var _stateMachine : State_Machine
+@export var hurtTimer : Timer
 
 ## Jump and Wall Jump Timers
 @export_subgroup("Jump Timers")

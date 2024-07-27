@@ -359,7 +359,7 @@ size = Vector2(384, 260)
 radius = 76.0
 height = 256.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("jumpBuildVelocity", "character_Collision", "interactArea", "dash_Timer", "dash_CooldownTimer", "wallSlideTimer", "_spriteNode", "_animations", "_stateMachine", "jump_CoyoteTime", "wall_jump_CoyoteTime", "torsoDetector", "headDetector", "stateLabel", "healthLabel", "debugPathLine")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("jumpBuildVelocity", "character_Collision", "interactArea", "dash_Timer", "dash_CooldownTimer", "wallSlideTimer", "_spriteNode", "_animations", "_stateMachine", "hurtTimer", "jump_CoyoteTime", "wall_jump_CoyoteTime", "torsoDetector", "headDetector", "stateLabel", "healthLabel", "debugPathLine")]
 scale = Vector2(0.25, 0.25)
 collision_layer = 2
 collision_mask = 5
@@ -377,6 +377,7 @@ _spriteNode = NodePath("Eskil")
 _animations = NodePath("AnimationPlayer")
 dodgeChance = 0.2
 _stateMachine = NodePath("State_Machine")
+hurtTimer = NodePath("State_Machine/WasHurtState/Timer")
 jump_CoyoteTime = NodePath("JumpTimers/jump_coyoteTime")
 wall_jump_CoyoteTime = NodePath("JumpTimers/wall_jump_coyoteTime")
 torsoDetector = NodePath("WallDetector")
@@ -391,7 +392,7 @@ debugPathLine = NodePath("DebugTools/debugPathLine")
 texture_filter = 1
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_yhgod")
-animation = &"Dash"
+animation = &"Hurt"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Eskil")
@@ -521,6 +522,10 @@ script = ExtResource("14_1lqdr")
 script = ExtResource("15_ye732")
 _stateMachine = NodePath("..")
 
+[node name="Timer" type="Timer" parent="State_Machine/WasHurtState"]
+wait_time = 0.5
+one_shot = true
+
 [node name="AttackState" type="Node" parent="State_Machine" node_paths=PackedStringArray("_stateMachine")]
 script = ExtResource("16_8ep6d")
 _stateMachine = NodePath("..")
@@ -538,8 +543,9 @@ default_color = Color(1, 0, 0, 1)
 [node name="Marker2D" type="Marker2D" parent="."]
 
 [connection signal="animation_finished" from="Eskil" to="." method="_on_eskil_animation_finished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="State_Machine/JumpState" method="_on_animation_player_animation_finished"]
-[connection signal="animation_started" from="AnimationPlayer" to="State_Machine/JumpState" method="_on_animation_player_animation_started"]
+[connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
 [connection signal="hurt" from="HurtArea" to="." method="_on_hurt_area_hurt"]
 [connection signal="headOffWall" from="HeadDetector" to="." method="_on_head_detector_head_off_wall"]
 [connection signal="headOnWall" from="HeadDetector" to="." method="_on_head_detector_head_on_wall"]
@@ -549,3 +555,4 @@ default_color = Color(1, 0, 0, 1)
 [connection signal="timeout" from="DashTimers/dash_Timer" to="State_Machine/DashState" method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="DashTimers/dash_CooldownTimer" to="State_Machine/DashState" method="_on_dash_cooldown_timer_timeout"]
 [connection signal="timeout" from="WallJumpTimers/wallSlideTimer" to="State_Machine/WallState" method="_on_wall_slide_timer_timeout"]
+[connection signal="timeout" from="State_Machine/WasHurtState/Timer" to="." method="_on_timer_timeout"]

@@ -8,3 +8,4 @@ extends Character
 @export var startSeekArea : Area2D
 @export var stopSeekArea : Area2D
 @export var chaseTimeOut : Timer
+@export var hitBox : HitArea

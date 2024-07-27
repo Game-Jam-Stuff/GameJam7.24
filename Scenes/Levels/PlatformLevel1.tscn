@@ -239,7 +239,7 @@ autoplay = "PathFollow"
 
 [node name="Player" parent="." instance=ExtResource("15_72hy4")]
 z_index = 5
-position = Vector2(-153, -53)
+position = Vector2(2083, -45)
 
 [node name="Hangers" type="Node" parent="."]
 

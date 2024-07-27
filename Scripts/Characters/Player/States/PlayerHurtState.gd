@@ -4,6 +4,7 @@ extends PlayerState
 var hitTween : Tween
 var damage
 var canDodge
+var hitDirection
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -15,11 +16,14 @@ func Enter(_msg := {}) -> void:
 	print("Hurt Enter");
 	_character.stateLabel.text = "HurtState"
 	_character._animations.play(GameContants.PlayerAnimations.ANIM_HURT)
+	_character.hurtTimer.start()
+	_character.hurtPlaying = true
 	damage = _msg.get("_damage")
 	canDodge =  _msg.get("_canDodge")
+	hitDirection = _msg.get("_hitDir")
 	if canDodge:
 		_character.dodgeRNG.randomize()
-		if _character.dodgeRNG.ranf() < _character.dodgeChance:
+		if _character.dodgeRNG.randf() < _character.dodgeChance:
 			_stateMachine.transition_to(GameContants.PlayerStates.MOVE)
 	
 	handleHit()
@@ -44,7 +48,8 @@ func handleHit():
 ## Temp Function
 func hitAnimation():
 	var gravity = _character.gravity * Vector2.DOWN
-	var jumpdir = Vector2((1 if _character._spriteNode.flip_h else -1) ,-1).normalized() *  (_character.gravity / 1.5)
+	var jumpdir = Vector2(hitDirection.x ,-1).normalized() *  (_character.gravity / 1.5)
+	_character._spriteNode.flip_h = !jumpdir.x < 0
 	hitTween = get_tree().create_tween()
 	hitTween.tween_property(_character, "velocity", jumpdir, 0.1).set_trans(Tween.TRANS_BOUNCE).from_current().set_ease(Tween.EASE_IN_OUT)
 	

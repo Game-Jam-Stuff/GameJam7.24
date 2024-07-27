@@ -26,5 +26,6 @@ func moveTo():
 func flippy():
 	if _character.velocity.x != 0:
 		_character._spriteNode.flip_h = !_character.velocity.x < 0
-		_character.headDetector.rotation_degrees = (0 if _character._spriteNode.flip_h else 180)
+		_character.hitBox.position.x = (40 if _character._spriteNode.flip_h else -40)
+		#_character.headDetector.rotation_degrees = (0 if _character._spriteNode.flip_h else 180)
 		_character.torsoDetector.rotation_degrees = (0 if _character._spriteNode.flip_h else 180)

@@ -19,7 +19,7 @@ func Update(_delta):
 func PhysicsUpdate(_delta):
 	# We move the player and update position checks.
 	_character.move_and_slide()
-	if not _character.hurtPlaying:
+	if _character.hurtTimer.is_stopped():
 		_Flip()	
 
 

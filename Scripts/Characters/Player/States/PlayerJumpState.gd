@@ -25,6 +25,7 @@ func Enter(_msg := {}) -> void:
 		
 func Exit():
 	_character.is_hanging = false
+	_character.hurtPlaying = false
 	jump_modifier = 1
 	
 # Called during the physics update step
@@ -84,7 +85,7 @@ func handleAirJump(delta):
 func handleAnimations():
 	var is_jumping = (_character.gravity > 0 and _character.velocity.y < 0) or (_character.gravity < 0 and _character.velocity.y > 0)
 	var is_falling = (_character.gravity > 0 and _character.velocity.y > 0) or (_character.gravity < 0 and _character.velocity.y < 0)
-	if !_character.hurtPlaying:
+	if _character.hurtTimer.is_stopped():
 		if is_jumping:
 			_character._animations.play(GameContants.PlayerAnimations.ANIM_JUMPING)
 		elif is_falling:
@@ -111,12 +112,3 @@ func handleStateChange(delta):
 		_stateMachine.transition_to(GameContants.PlayerStates.WALL, {_delta = delta})
 
 
-
-func _on_animation_player_animation_started(anim_name: StringName) -> void:
-	if anim_name == GameContants.PlayerAnimations.ANIM_HURT:
-		_character.hurtPlaying = true # Replace with function body.
-
-
-func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	if anim_name == GameContants.PlayerAnimations.ANIM_HURT:
-		_character.hurtPlaying = false # Replace with function body.

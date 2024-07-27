@@ -14,7 +14,7 @@ size = Vector2(57, 75)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ho10"]
 size = Vector2(1070.89, 310.053)
 
-[node name="Node2D" type="Node2D"]
+[node name="Level2" type="Node2D"]
 script = ExtResource("1_mvm7d")
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -45,7 +45,7 @@ position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_4egni")
 
 [node name="Player" parent="." instance=ExtResource("6_56h7j")]
-position = Vector2(-7731, -42)
+position = Vector2(-6879, -180)
 
 [node name="Boar" parent="." node_paths=PackedStringArray("startSeekArea") instance=ExtResource("7_hmw2i")]
 position = Vector2(-6702, -8)
@@ -63,5 +63,6 @@ shape = SubResource("RectangleShape2D_7ho10")
 [connection signal="player_entered" from="ReturnToOverworldDoorDoor" to="." method="_on_return_to_overworld_door_door_player_entered"]
 [connection signal="area_entered" from="CheckPoint/InteractiveArea" to="CheckPoint/InteractiveArea" method="_on_area_entered"]
 [connection signal="area_exited" from="CheckPoint/InteractiveArea" to="CheckPoint/InteractiveArea" method="_on_area_exited"]
+[connection signal="died" from="Player" to="." method="_on_player_died"]
 [connection signal="body_entered" from="StartSeekingArea" to="Boar" method="_on_seeking_area_body_entered"]
 [connection signal="body_exited" from="StartSeekingArea" to="Boar" method="_on_seeking_area_body_exited"]

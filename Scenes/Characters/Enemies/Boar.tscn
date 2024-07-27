@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://ci1bpcnd2o3ki"]
+[gd_scene load_steps=37 format=3 uid="uid://ci1bpcnd2o3ki"]
 
 [ext_resource type="Script" path="res://Scripts/Characters/Enemies/boar.gd" id="1_mbbfl"]
 [ext_resource type="Texture2D" uid="uid://qdhe26h6u07" path="res://Assets/Characters/Enemies/Boar/boar-Idle-Sheet.png" id="2_78i0d"]
@@ -9,9 +9,9 @@
 [ext_resource type="Script" path="res://Scripts/Characters/Enemies/States/BoarChaseState.gd" id="6_o2wpw"]
 [ext_resource type="Script" path="res://Scripts/Characters/Enemies/States/EnemyPatrolState.gd" id="6_yg3mi"]
 [ext_resource type="Script" path="res://Scripts/Characters/AllCharacters/WallDetectionRay.gd" id="7_ea738"]
-[ext_resource type="Script" path="res://Scripts/Characters/Enemies/States/BoarIdleState.gd" id="7_nmvhs"]
 [ext_resource type="Script" path="res://Scripts/Characters/Enemies/States/BoarAttackState.gd" id="8_pn6bo"]
 [ext_resource type="PackedScene" uid="uid://ck2yt55rcskxw" path="res://Scenes/HazardsAndCombat/Hit_and_HurtBoxes/hurt_area.tscn" id="9_gewyd"]
+[ext_resource type="Script" path="res://Scripts/HazardsAndCombat/hit_area.gd" id="12_lj6hv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vymrh"]
 atlas = ExtResource("2_78i0d")
@@ -152,46 +152,46 @@ height = 112.0
 size = Vector2(1386.53, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uf7h7"]
-size = Vector2(136.875, 20)
+size = Vector2(106, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_12sne"]
 size = Vector2(844, 20)
 
-[node name="Boar" type="CharacterBody2D" node_paths=PackedStringArray("chaseTimeOut", "_spriteNode", "_animations", "_stateMachine", "torsoDetector", "headDetector", "stateLabel")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r8ppo"]
+size = Vector2(32, 86)
+
+[node name="Boar" type="CharacterBody2D" node_paths=PackedStringArray("chaseTimeOut", "hitBox", "_spriteNode", "_animations", "_stateMachine", "torsoDetector", "headDetector", "stateLabel")]
 scale = Vector2(0.5, 0.5)
 collision_layer = 0
 collision_mask = 5
 script = ExtResource("1_mbbfl")
 chaseTimeOut = NodePath("State_Machine/ChaseState/CalculateTimer")
+hitBox = NodePath("HitArea")
 run_speed = 150
 _spriteNode = NodePath("AnimatedSprite2D")
 _animations = NodePath("AnimationPlayer")
 _stateMachine = NodePath("State_Machine")
 torsoDetector = NodePath("NearWall")
-headDetector = NodePath("On Wall")
+headDetector = NodePath("")
 stateLabel = NodePath("StateLabel")
 stateLabelOn = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -50)
 sprite_frames = SubResource("SpriteFrames_5dhui")
-animation = &"Move"
+animation = &"Idle"
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -44)
 shape = SubResource("CapsuleShape2D_fgctr")
 
 [node name="NearWall" type="RayCast2D" parent="."]
 position = Vector2(0, -46)
 target_position = Vector2(122, 0)
+hit_from_inside = true
 collide_with_areas = true
-script = ExtResource("7_ea738")
-
-[node name="On Wall" type="RayCast2D" parent="."]
-position = Vector2(0, -40)
-target_position = Vector2(74, 0)
-collide_with_bodies = false
 script = ExtResource("7_ea738")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -204,9 +204,6 @@ libraries = {
 [node name="State_Machine" type="Node" parent="."]
 script = ExtResource("5_ocae6")
 initial_state = NodePath("PatrolState")
-
-[node name="IdleState" type="Node" parent="State_Machine"]
-script = ExtResource("7_nmvhs")
 
 [node name="PatrolState" type="Node" parent="State_Machine"]
 script = ExtResource("6_yg3mi")
@@ -261,9 +258,9 @@ offset_bottom = -197.0
 text = "State Label"
 
 [node name="HurtArea" parent="." instance=ExtResource("9_gewyd")]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtArea"]
-visible = false
 position = Vector2(0, -44)
 shape = SubResource("CapsuleShape2D_n2tc2")
 
@@ -273,10 +270,10 @@ collision_layer = 0
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionZone"]
-visible = false
 shape = SubResource("RectangleShape2D_obvun")
 
 [node name="ChargeArea" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 3
 
@@ -288,17 +285,30 @@ collision_layer = 0
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_uf7h7")
 
 [node name="NoChargeArea" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NoChargeArea"]
 shape = SubResource("RectangleShape2D_12sne")
 
+[node name="HitArea" type="Area2D" parent="."]
+position = Vector2(40, -38)
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("12_lj6hv")
+damage = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
+position = Vector2(-6, -1)
+shape = SubResource("RectangleShape2D_r8ppo")
+debug_color = Color(0.998937, 0, 0.128371, 0.42)
+
 [connection signal="wall_entered" from="NearWall" to="State_Machine/PatrolState" method="_near_wall_wall_entered"]
-[connection signal="wall_entered" from="On Wall" to="State_Machine/PatrolState" method="_on_wall_wall_entered"]
 [connection signal="timeout" from="State_Machine/PatrolState/PauseTimer" to="State_Machine/PatrolState" method="_on_pause_timer_timeout"]
 [connection signal="timeout" from="State_Machine/ChargeState/chargeCooldownTimer" to="State_Machine/ChargeState" method="_on_charge_cooldown_timer_timeout"]
 [connection signal="timeout" from="State_Machine/ChargeState/chargeTimer" to="State_Machine/ChargeState" method="_on_charge_timer_timeout"]
@@ -312,3 +322,4 @@ shape = SubResource("RectangleShape2D_12sne")
 [connection signal="body_exited" from="AttackArea" to="." method="_on_attack_area_body_exited"]
 [connection signal="body_entered" from="NoChargeArea" to="." method="_on_no_charge_area_body_entered"]
 [connection signal="body_exited" from="NoChargeArea" to="." method="_on_no_charge_area_body_exited"]
+[connection signal="area_entered" from="HitArea" to="HitArea" method="_on_area_entered"]
