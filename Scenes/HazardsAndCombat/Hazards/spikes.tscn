@@ -20,6 +20,6 @@ damage = 3
 canDodge = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitArea"]
-polygon = PackedVector2Array(-186, -4, -131, -218, -87, 0, -52, -225, 1, 5, 42, -226, 83, 0, 123, -223, 174, 0, 174, 129, -185, 130)
+polygon = PackedVector2Array(-167, -186, -131, -218, -94, -203, -52, -225, -15, -203, 42, -226, 83, -214, 123, -223, 172, -202, 174, 129, -185, 130)
 
 [connection signal="area_entered" from="HitArea" to="HitArea" method="_on_area_entered"]
