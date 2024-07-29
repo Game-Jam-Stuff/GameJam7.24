@@ -359,7 +359,7 @@ size = Vector2(384, 260)
 radius = 76.0
 height = 256.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("jumpBuildVelocity", "character_Collision", "interactArea", "dash_Timer", "dash_CooldownTimer", "wallSlideTimer", "_spriteNode", "_animations", "_stateMachine", "jump_CoyoteTime", "wall_jump_CoyoteTime", "torsoDetector", "headDetector", "stateLabel", "healthLabel", "debugPathLine")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("jumpBuildVelocity", "character_Collision", "interactArea", "dash_Timer", "dash_CooldownTimer", "wallSlideTimer", "_spriteNode", "_animations", "_stateMachine", "hurtTimer", "jump_CoyoteTime", "wall_jump_CoyoteTime", "torsoDetector", "headDetector", "stateLabel", "healthLabel", "debugPathLine")]
 scale = Vector2(0.25, 0.25)
 collision_layer = 2
 collision_mask = 5
@@ -377,6 +377,7 @@ _spriteNode = NodePath("Eskil")
 _animations = NodePath("AnimationPlayer")
 dodgeChance = 0.2
 _stateMachine = NodePath("State_Machine")
+hurtTimer = NodePath("HurtTimer/HurtTimer")
 jump_CoyoteTime = NodePath("JumpTimers/jump_coyoteTime")
 wall_jump_CoyoteTime = NodePath("JumpTimers/wall_jump_coyoteTime")
 torsoDetector = NodePath("WallDetector")
@@ -453,6 +454,12 @@ scale = Vector2(4, 4)
 target_position = Vector2(26, 0)
 collide_with_areas = true
 script = ExtResource("6_ce5ja")
+
+[node name="HurtTimer" type="Node" parent="."]
+
+[node name="HurtTimer" type="Timer" parent="HurtTimer"]
+wait_time = 0.2
+one_shot = true
 
 [node name="Detectors" type="Node" parent="."]
 
