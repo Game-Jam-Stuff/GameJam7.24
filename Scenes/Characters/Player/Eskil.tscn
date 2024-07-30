@@ -350,7 +350,7 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jhmax"]
 radius = 76.0
-height = 256.0
+height = 184.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tx8lr"]
 size = Vector2(384, 260)
@@ -390,7 +390,7 @@ debugPathLine = NodePath("DebugTools/debugPathLine")
 
 [node name="Eskil" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-scale = Vector2(4, 4)
+scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_yhgod")
 animation = &"Hurt"
 
@@ -401,7 +401,6 @@ libraries = {
 }
 
 [node name="CollisionZone" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("CapsuleShape2D_jhmax")
 
 [node name="InteractionZone" type="Area2D" parent="."]
@@ -424,6 +423,9 @@ shape = SubResource("CapsuleShape2D_22jt2")
 debug_color = Color(0.029436, 0.65069, 0, 0.42)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(12.68, 1)
+zoom = Vector2(1.5, 1.5)
+position_smoothing_enabled = true
 
 [node name="stateLabel" type="Label" parent="."]
 offset_left = -76.0

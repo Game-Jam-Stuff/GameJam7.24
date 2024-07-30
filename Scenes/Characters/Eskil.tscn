@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://frx8xl47tc6k"]
+[gd_scene load_steps=69 format=3 uid="uid://d0o6veb0w8wi0"]
 
 [ext_resource type="Script" path="res://Scripts/Characters/Player/Player.gd" id="1_wc8qq"]
 [ext_resource type="Texture2D" uid="uid://dtulxe5jsiiew" path="res://Assets/Characters/Eskil/MC-dash-Sheet.png" id="2_lgw36"]
